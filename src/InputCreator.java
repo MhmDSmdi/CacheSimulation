@@ -9,11 +9,11 @@ public class InputCreator {
     private final static int wordSize = 32;
     private static int inputNumber;
     private String[] words;
-    private boolean creation;
+    private boolean created;
 
     public InputCreator(){
         words = new String[100];
-        creation = false;
+        created = false;
         File input = new File(fileName);
         if(!input.exists() || !input.isDirectory())
             input.mkdir();
@@ -55,18 +55,17 @@ public class InputCreator {
 
         }
 
-        creation = true;
+        created = true;
 
-        return;
     }
 
 
 
-    public boolean writeToFile(int fileNumber){
+    private boolean writeToFile(int fileNumber){
 
         if(fileNumber > 5 || fileNumber < 1)
             return false;
-        if(!creation)
+        if(!created)
             return false;
         File file = new File("inputs/input" + fileNumber + ".txt");
         if (file.exists()) {
