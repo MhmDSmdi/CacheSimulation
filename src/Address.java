@@ -6,12 +6,12 @@ public class Address {
     private int offset;
     private int index;
 
-    public Address(String byteAddress, int bitLentgh, int blockSizeExponent, int cacheSizeExponent) {
+    public Address(String byteAddress, int bitLenght, int blockSizeExponent, int cacheSizeExponent) {
         this.byteAddress = byteAddress;
         blockSizeByte = (int) Math.pow(2, blockSizeExponent);
         cacheSizeByte = (int) Math.pow(2, cacheSizeExponent);
-        deserializeAddress(byteAddress, bitLentgh, blockSizeExponent, cacheSizeExponent);
-        print();
+        deserializeAddress(byteAddress, bitLenght, blockSizeExponent, cacheSizeExponent);
+//        print();
 
     }
 

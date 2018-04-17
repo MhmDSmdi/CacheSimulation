@@ -1,31 +1,42 @@
 public class Cache {
 
-    public int cacheSize_byte;
+    public int cacheSize_block;
     private Block[] cacheArray;
-
-    public Cache(Block[] cache, int cacheSize_byte) {
-        this.cacheArray = cache;
-        this.cacheSize_byte = cacheSize_byte;
-    }
+    private int hitCount = 0, missCount = 0;
 
     public Cache(int cacheSize_block) {
+        this.cacheSize_block = cacheSize_block;
         cacheArray = new Block[cacheSize_block];
+        for (int i = 0 ; i < cacheSize_block ; i++) {
+            cacheArray[i] = new Block(16);
+        }
     }
 
     public Address getDataFromCache(Address cpuAddress) {
         Block temp = cacheArray[cpuAddress.getIndex()];
         if (temp.getTag() == cpuAddress.getTag()) {
-            System.out.println("hit :)");
-            //Do Something
+            hitCount++;
             return temp.getDataByOffset(cpuAddress.getOffset());
         } else {
-            System.out.println("Miss :|");
-            //getDataFromRAM()
-            //Interchange Block
+            missCount++;
+            temp.setTag(cpuAddress.getTag());
             return null;
         }
-
     }
 
+    public int getHitCount() {
+        return hitCount;
+    }
 
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    public int getMissCount() {
+        return missCount;
+    }
+
+    public void setMissCount(int missCount) {
+        this.missCount = missCount;
+    }
 }
