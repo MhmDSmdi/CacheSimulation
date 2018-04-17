@@ -7,9 +7,11 @@ public class MainComponent {
     private Cache mainCache;
     private BufferedReader bf;
     private FileReader fr;
+    private FullyAssociativeCache fullyAssociativeCache;
     private static final int BIT_LENTGH = 32;
     private static final int BLOCK_SIZE_EXPONENT = 4;
     private static final int CACHE_SIZE_EXPONENT = 12;
+    private static final int FULLY_CACHE_SIZE_EXPONENT = 8;
     private static final int NUMBER_OF_INPUT = 500;
     private Vector<Address> addresses;
 
@@ -17,6 +19,7 @@ public class MainComponent {
         try {
             addresses = new Vector<>();
             mainCache = new Cache((int) Math.pow(2, CACHE_SIZE_EXPONENT - BLOCK_SIZE_EXPONENT));
+            fullyAssociativeCache = new FullyAssociativeCache((int) Math.pow(2,FULLY_CACHE_SIZE_EXPONENT),(int)Math.pow(2,BLOCK_SIZE_EXPONENT));
             fr = new FileReader("inputs/" + fileAddress);
             bf = new BufferedReader(fr);
             for (int i = 0 ; i < NUMBER_OF_INPUT ; i++){
@@ -34,9 +37,7 @@ public class MainComponent {
             mainCache.getDataFromCache(a);
         }
 
-        double hitRatio = mainCache.getHitCount() / NUMBER_OF_INPUT;
-        double a = 463 / 500;
-        System.out.println(a);
+        double hitRatio = (double) mainCache.getHitCount() / NUMBER_OF_INPUT;
         System.out.println("Hit ratio: " + hitRatio * 100);
     }
 
