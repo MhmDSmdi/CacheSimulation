@@ -32,7 +32,6 @@ public class InputCreator {
     }
 
     public void create(){
-
         Random random = new Random();
         for (int i = 0; i < 20; i++) {
 
@@ -51,15 +50,9 @@ public class InputCreator {
                 words[j] =  addressPlus(str);
                 str = words[j];
             }
-
-
         }
-
         created = true;
-
     }
-
-
 
     private boolean writeToFile(int fileNumber){
 
@@ -76,7 +69,6 @@ public class InputCreator {
                 e.printStackTrace();
             }
         }
-
 
         FileWriter fileWriter;
         BufferedWriter writer;
@@ -109,13 +101,12 @@ public class InputCreator {
             System.out.println("Error Writing in File!");
         }
 
-
         return true;
     }
 
 
     public void createInputFiles(){
-
+        create();
         writeToFile(1);
         writeToFile(2);
         writeToFile(3);
@@ -123,9 +114,8 @@ public class InputCreator {
         writeToFile(5);
     }
 
-
-
-
-
-
+    public static void main(String[] args) {
+        InputCreator a = new InputCreator();
+        a.createInputFiles();
+    }
 }
