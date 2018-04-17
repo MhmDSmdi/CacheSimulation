@@ -13,7 +13,7 @@ public class FullyAssociativeCache {
         }
     }
 
-    public int find(Block block){
+    public int findBlock(Block block){
         for (int i = 0; i < cacheSize/blockSize; i++) {
             if(block.getTag() == cache[i].getTag()) {
                 use[i]++;
@@ -32,7 +32,7 @@ public class FullyAssociativeCache {
     } */
 
 
-    public void put(Block block){
+    public void putBlock(Block block){
         if(block == null)
             return;
         int min = 0;
