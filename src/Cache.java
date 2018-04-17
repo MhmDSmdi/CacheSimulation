@@ -2,7 +2,6 @@ public class Cache {
 
     public int cacheSize_block;
     private Block[] cacheArray;
-    private int hitCount = 0, missCount = 0;
 
     public Cache(int cacheSize_block) {
         this.cacheSize_block = cacheSize_block;
@@ -12,31 +11,12 @@ public class Cache {
         }
     }
 
-    public Address getDataFromCache(Address cpuAddress) {
+    public boolean find(Address cpuAddress) {
         Block temp = cacheArray[cpuAddress.getIndex()];
-        if (temp.getTag() == cpuAddress.getTag()) {
-            hitCount++;
-            return temp.getDataByOffset(cpuAddress.getOffset());
-        } else {
-            missCount++;
-            temp.setTag(cpuAddress.getTag());
-            return null;
-        }
-    }
+        if (temp.getTag() == cpuAddress.getTag())
+            return true;
+            else
+            return false;
 
-    public int getHitCount() {
-        return hitCount;
-    }
-
-    public void setHitCount(int hitCount) {
-        this.hitCount = hitCount;
-    }
-
-    public int getMissCount() {
-        return missCount;
-    }
-
-    public void setMissCount(int missCount) {
-        this.missCount = missCount;
     }
 }

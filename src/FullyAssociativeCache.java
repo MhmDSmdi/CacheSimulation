@@ -13,14 +13,14 @@ public class FullyAssociativeCache {
         }
     }
 
-    public int findBlock(Block block){
+    public boolean find(Block block){
         for (int i = 0; i < cacheSize/blockSize; i++) {
             if(block.getTag() == cache[i].getTag()) {
                 use[i]++;
-                return i;
+                return true;
             }
         }
-        return -1;
+        return false;
     }
 
 

@@ -3,19 +3,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-public class MainComponent {
+public class VictimCache {
     private Cache mainCache;
     private BufferedReader bf;
     private FileReader fr;
     private FullyAssociativeCache fullyAssociativeCache;
-    private static final int BIT_LENTGH = 32;
+    private static final int BIT_LENGTH = 32;
     private static final int BLOCK_SIZE_EXPONENT = 4;
     private static final int CACHE_SIZE_EXPONENT = 12;
     private static final int FULLY_CACHE_SIZE_EXPONENT = 8;
     private static final int NUMBER_OF_INPUT = 500;
     private Vector<Address> addresses;
 
-    public MainComponent(String fileAddress) {
+    public VictimCache(String fileAddress) {
         try {
             addresses = new Vector<>();
             mainCache = new Cache((int) Math.pow(2, CACHE_SIZE_EXPONENT - BLOCK_SIZE_EXPONENT));
@@ -24,7 +24,7 @@ public class MainComponent {
             bf = new BufferedReader(fr);
             for (int i = 0 ; i < NUMBER_OF_INPUT ; i++){
                 String addressString  = bf.readLine();
-                Address cpuAddress = new Address(addressString, BIT_LENTGH, BLOCK_SIZE_EXPONENT, CACHE_SIZE_EXPONENT);
+                Address cpuAddress = new Address(addressString, BIT_LENGTH, BLOCK_SIZE_EXPONENT, CACHE_SIZE_EXPONENT);
                 addresses.add(cpuAddress);
             }
         }catch (IOException e){
@@ -34,15 +34,14 @@ public class MainComponent {
 
     public void powerOn() {
         for (Address a : addresses) {
-            mainCache.getDataFromCache(a);
+            mainCache.find(a);
         }
 
-        double hitRatio = (double) mainCache.getHitCount() / NUMBER_OF_INPUT;
-        System.out.println("Hit ratio: " + hitRatio * 100);
+
     }
 
     public static void main(String[] args) {
-        new MainComponent("input1.txt").powerOn();
+        new VictimCache("input1.txt").powerOn();
 
     }
 
