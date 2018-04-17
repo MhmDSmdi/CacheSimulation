@@ -13,9 +13,9 @@ public class FullyAssociativeCache {
         }
     }
 
-    public boolean find(Block block){
+    public boolean find(Address address){
         for (int i = 0; i < cacheSize/blockSize; i++) {
-            if(block.getTag() == cache[i].getTag()) {
+            if(address.getTag() == cache[i].getTag()) {
                 use[i]++;
                 return true;
             }
@@ -32,17 +32,20 @@ public class FullyAssociativeCache {
     } */
 
 
-    public void putBlock(Block block){
+    public void put(Block block){
         if(block == null)
             return;
         int min = 0;
 
         for (int i = 0; i < cacheSize/blockSize; i++) {
-            if(block.getTag() == cache[i].getTag())
+            if(cache[i] == null){
+                cache[i] = block;
                 return;
-            else if(use[i] < use[min]){
-                min = i;
             }
+            else if(block.getTag() == cache[i].getTag())
+                return;
+            else if(use[i] < use[min])
+                min = i;
         }
 
         cache[min] = block;

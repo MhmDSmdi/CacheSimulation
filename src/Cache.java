@@ -6,17 +6,22 @@ public class Cache {
     public Cache(int cacheSize_block) {
         this.cacheSize_block = cacheSize_block;
         cacheArray = new Block[cacheSize_block];
-        for (int i = 0 ; i < cacheSize_block ; i++) {
-            cacheArray[i] = new Block(16);
-        }
     }
 
     public boolean find(Address cpuAddress) {
         Block temp = cacheArray[cpuAddress.getIndex()];
-        if (temp.getTag() == cpuAddress.getTag())
+        if (temp != null && (temp.getTag() == cpuAddress.getTag()))
             return true;
             else
             return false;
 
+    }
+
+    public void put(Address address){
+        cacheArray[address.getIndex()] = new Block(address.getTag());
+    }
+
+    public Block getBlock(int index){
+        return cacheArray[index];
     }
 }

@@ -14,6 +14,7 @@ public class VictimCache {
     private static final int FULLY_CACHE_SIZE_EXPONENT = 8;
     private static final int NUMBER_OF_INPUT = 500;
     private Vector<Address> addresses;
+    private int hit = 0, miss = 0;
 
     public VictimCache(String fileAddress) {
         try {
@@ -34,8 +35,19 @@ public class VictimCache {
 
     public void powerOn() {
         for (Address a : addresses) {
-            mainCache.find(a);
+           boolean found1 =  mainCache.find(a);
+           boolean found2 = fullyAssociativeCache.find(a);
+           if(!found1 && !found2){
+                fullyAssociativeCache.put(mainCache.getBlock(a.getIndex()));
+                mainCache.put(a);
+                miss++;
+           }
+           else
+               hit++;
         }
+
+        System.out.println("Hit Ratio : " + ((double)hit)/addresses.size());
+        System.out.println("Miss Ratio : " + ((double)miss)/addresses.size());
 
 
     }
