@@ -1,5 +1,4 @@
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,11 +9,11 @@ public class InputCreator {
     private final static int wordSize = 32;
     private static int inputNumber;
     private String[] words;
-    private boolean created;
+    private boolean creation;
 
     public InputCreator() {
         words = new String[100];
-        created = false;
+        creation = false;
         File input = new File(fileName);
         if (!input.exists() || !input.isDirectory())
             input.mkdir();
@@ -32,10 +31,10 @@ public class InputCreator {
         return stringBuilder.toString();
     }
 
-    public void create() {
+    private void create() {
 
         Random random = new Random();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 25; i++) {
 
             StringBuilder wordBuilder = new StringBuilder();
 
@@ -48,7 +47,7 @@ public class InputCreator {
             }
 
             String str = wordBuilder.toString();
-            for (int j = i * 5; j < ((i * 5) + 5); j++) {
+            for (int j = i * 4; j < ((i * 4) + 4); j++) {
                 words[j] = addressPlus(str);
                 str = words[j];
             }
@@ -56,7 +55,7 @@ public class InputCreator {
 
         }
 
-        created = true;
+        creation = true;
 
     }
 
@@ -65,8 +64,8 @@ public class InputCreator {
 
         if (fileNumber > 5 || fileNumber < 1)
             return false;
-        if (!created)
-            return false;
+        if (!creation)
+            create();
         File file = new File("inputs/input" + fileNumber + ".txt");
         if (file.exists()) {
             file.delete();
@@ -79,7 +78,6 @@ public class InputCreator {
 
 
         FileWriter fileWriter;
-        BufferedWriter writer;
         try {
             fileWriter = new FileWriter(file);
             for (int i = 0; i < 100; i++) {

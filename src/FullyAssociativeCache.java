@@ -15,7 +15,7 @@ public class FullyAssociativeCache {
 
     public boolean find(Address address){
         for (int i = 0; i < cacheSize/blockSize; i++) {
-            if(address.getTag() == cache[i].getTag()) {
+            if(cache[i]  != null && address.getTag() == cache[i].getTag()) {
                 use[i]++;
                 return true;
             }
