@@ -1,4 +1,12 @@
 public class FullyAssociativeCache {
+    public int getCacheSize() {
+        return cacheSize;
+    }
+
+    public int getBlockSize() {
+        return blockSize;
+    }
+
     private int cacheSize, blockSize;
     private Block[] cache;
     private int[] use;
@@ -24,12 +32,13 @@ public class FullyAssociativeCache {
     }
 
 
-  /*  public Block getBlock(int index) {
+    public Block getBlock(int index) {
         if(index >= cacheSize/blockSize || index < 0)
         return null;
 
         return cache[index];
-    } */
+    }
+
 
 
     public void put(Block block){
@@ -40,6 +49,7 @@ public class FullyAssociativeCache {
         for (int i = 0; i < cacheSize/blockSize; i++) {
             if(cache[i] == null){
                 cache[i] = block;
+                use[i] = 0;
                 return;
             }
             else if(block.getTag() == cache[i].getTag())
@@ -49,6 +59,13 @@ public class FullyAssociativeCache {
         }
 
         cache[min] = block;
+        use[min] = 0;
 
     }
+
+    public void put(int index, Block block){
+        cache[index] = block;
+        use[index] = 0;
+    }
+
 }

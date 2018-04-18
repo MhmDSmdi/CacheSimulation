@@ -18,7 +18,11 @@ public class Cache {
     }
 
     public void put(Address address){
-        cacheArray[address.getIndex()] = new Block(address.getTag());
+        cacheArray[address.getIndex()] = new Block(address.getTag(),address.getIndex());
+    }
+
+    public void put(Block block){
+        cacheArray[(int) block.getIndex()] = block;
     }
 
     public Block getBlock(int index){

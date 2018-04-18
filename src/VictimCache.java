@@ -33,7 +33,7 @@ public class VictimCache {
         }
     }
 
-    public void useVictimCahce() {
+    public void useVictimCache() {
         for (Address a : addresses) {
            boolean found1 =  mainCache.find(a);
            boolean found2 = fullyAssociativeCache.find(a);
@@ -42,8 +42,23 @@ public class VictimCache {
                 mainCache.put(a);
                 miss++;
            }
-           else
+           else {
                hit++;
+               if(!found1 && found2){
+                   Block A = mainCache.getBlock(a.getIndex());
+                   Block B = new Block(1,2);
+                   int ind = -1;
+                   for (int i = 0; i < fullyAssociativeCache.getCacheSize()/fullyAssociativeCache.getBlockSize(); i++) {
+                       if(a.getTag() == fullyAssociativeCache.getBlock(i).getTag()) {
+                           B = fullyAssociativeCache.getBlock(i);
+                           ind = i;
+                           break;
+                       }
+                   }
+                   mainCache.put(B);
+                   fullyAssociativeCache.put(ind,A);
+               }
+           }
         }
 
         System.out.println("Hit Ratio : " + ((double)hit)/addresses.size());
@@ -71,31 +86,31 @@ public class VictimCache {
         new InputCreator().createInputFiles();
         System.out.println("input 1 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input1.txt").useVictimCahce();
+        new VictimCache("input1.txt").useVictimCache();
         System.out.println("Use Direct Map Cache : ");
         new VictimCache("input1.txt").useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 2 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input2.txt").useVictimCahce();
+        new VictimCache("input2.txt").useVictimCache();
         System.out.println("Use Direct Map Cache : ");
         new VictimCache("input2.txt").useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 3 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input3.txt").useVictimCahce();
+        new VictimCache("input3.txt").useVictimCache();
         System.out.println("Use Direct Map Cache : ");
         new VictimCache("input3.txt").useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 4 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input4.txt").useVictimCahce();
+        new VictimCache("input4.txt").useVictimCache();
         System.out.println("Use Direct Map Cache : ");
         new VictimCache("input4.txt").useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 5 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input5.txt").useVictimCahce();
+        new VictimCache("input5.txt").useVictimCache();
         System.out.println("Use Direct Map Cache : ");
         new VictimCache("input5.txt").useDirectMapCache();
         System.out.println("*********************");

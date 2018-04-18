@@ -9,11 +9,9 @@ public class InputCreator {
     private final static int wordSize = 32;
     private static int inputNumber;
     private String[] words;
-    private boolean creation;
 
     public InputCreator() {
         words = new String[100];
-        creation = false;
         File input = new File(fileName);
         if (!input.exists() || !input.isDirectory())
             input.mkdir();
@@ -55,8 +53,6 @@ public class InputCreator {
 
         }
 
-        creation = true;
-
     }
 
 
@@ -64,7 +60,6 @@ public class InputCreator {
 
         if (fileNumber > 5 || fileNumber < 1)
             return false;
-        if (!creation)
             create();
         File file = new File("inputs/input" + fileNumber + ".txt");
         if (file.exists()) {
@@ -85,17 +80,17 @@ public class InputCreator {
                 fileWriter.write('\n');
             }
             Random random = new Random();
-            boolean[] wrote = new boolean[10];
+            boolean[] wrote = new boolean[20];
             for (int i = 0; i < 4; i++) {
 
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 20; j++)
                     wrote[j] = false;
 
-                for (int j = 0; j < 10; j++) {
-                    int k = Math.abs(random.nextInt() % 10);
+                for (int j = 0; j < 20; j++) {
+                    int k = Math.abs(random.nextInt() % 20);
                     while (wrote[k])
-                        k = Math.abs(random.nextInt() % 10);
-                    for (int l = 10 * k; l < 10 * (k + 1); l++) {
+                        k = Math.abs(random.nextInt() % 20);
+                    for (int l = 5 * k; l < 5 * (k + 1); l++) {
                         fileWriter.write(words[l]);
                         fileWriter.write('\n');
                     }
