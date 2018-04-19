@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class InputCreator {
     private final static String fileName = "inputs";
-    private final static int wordSize = 32;
+    private final static int WORD_SIZE = 32;
     private static int inputNumber;
     private String[] words;
 
@@ -30,13 +30,10 @@ public class InputCreator {
     }
 
     private void create() {
-
         Random random = new Random();
         for (int i = 0; i < 25; i++) {
-
             StringBuilder wordBuilder = new StringBuilder();
-
-            for (int j = 0; j < wordSize; j++) {
+            for (int j = 0; j < WORD_SIZE; j++) {
                 int x = Math.abs(random.nextInt() % 10);
                 if (x > 5)
                     wordBuilder.append('0');
@@ -49,15 +46,10 @@ public class InputCreator {
                 words[j] = addressPlus(str);
                 str = words[j];
             }
-
-
         }
-
     }
 
-
     private boolean writeToFile(int fileNumber) {
-
         if (fileNumber > 5 || fileNumber < 1)
             return false;
             create();
@@ -71,7 +63,6 @@ public class InputCreator {
             }
         }
 
-
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(file);
@@ -82,10 +73,8 @@ public class InputCreator {
             Random random = new Random();
             boolean[] wrote = new boolean[20];
             for (int i = 0; i < 4; i++) {
-
                 for (int j = 0; j < 20; j++)
                     wrote[j] = false;
-
                 for (int j = 0; j < 20; j++) {
                     int k = Math.abs(random.nextInt() % 20);
                     while (wrote[k])
@@ -101,14 +90,10 @@ public class InputCreator {
         } catch (IOException e) {
             System.out.println("Error Writing in File!");
         }
-
-
         return true;
     }
 
-
     public void createInputFiles() {
-
         writeToFile(1);
         writeToFile(2);
         writeToFile(3);
