@@ -15,6 +15,18 @@ public class VictimCache {
     private static final int NUMBER_OF_INPUT = 500;
     private Vector<Address> addresses;
     private int hit = 0, miss = 0;
+    private double hitRatio = 0;
+    private double missRatio = 0;
+
+    public double getHitRatio() {
+        return hitRatio;
+    }
+
+    public double getMissRatio() {
+        return missRatio;
+    }
+
+
 
     public VictimCache(String fileAddress) {
         try {
@@ -61,6 +73,8 @@ public class VictimCache {
            }
         }
 
+        hitRatio = ((double)hit)/addresses.size();
+        missRatio = ((double)miss)/addresses.size();
         System.out.println("Hit Ratio : " + ((double)hit)/addresses.size());
         System.out.println("Miss Ratio : " + ((double)miss)/addresses.size());
 
@@ -78,42 +92,73 @@ public class VictimCache {
                 hit++;
         }
 
+        hitRatio = ((double)hit)/addresses.size();
+        missRatio = ((double)miss)/addresses.size();
         System.out.println("Hit Ratio : " + ((double)hit)/addresses.size());
         System.out.println("Miss Ratio : " + ((double)miss)/addresses.size());
     }
 
     public static void main(String[] args) {
-        new InputCreator().createInputFiles();
+        // new InputCreator().createInputFiles();
+        VictimCache[] x = new VictimCache[10];
         System.out.println("input 1 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input1.txt").useVictimCache();
+        x[0] = new VictimCache("input1.txt");
+        x[0].useVictimCache();
         System.out.println("Use Direct Map Cache : ");
-        new VictimCache("input1.txt").useDirectMapCache();
+        x[1] = new VictimCache("input1.txt");
+        x[1].useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 2 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input2.txt").useVictimCache();
+        x[2] = new VictimCache("input2.txt");
+        x[2].useVictimCache();
         System.out.println("Use Direct Map Cache : ");
-        new VictimCache("input2.txt").useDirectMapCache();
+        x[3] = new VictimCache("input2.txt");
+        x[3].useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 3 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input3.txt").useVictimCache();
+        x[4] = new VictimCache("input3.txt");
+        x[4].useVictimCache();
         System.out.println("Use Direct Map Cache : ");
-        new VictimCache("input3.txt").useDirectMapCache();
+        x[5] = new VictimCache("input3.txt");
+        x[5].useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 4 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input4.txt").useVictimCache();
+        x[6] = new VictimCache("input4.txt");
+        x[6].useVictimCache();
         System.out.println("Use Direct Map Cache : ");
-        new VictimCache("input4.txt").useDirectMapCache();
+        x[7] = new VictimCache("input4.txt");
+        x[7].useDirectMapCache();
         System.out.println("*********************");
         System.out.println("input 5 : ");
         System.out.println("Use Victim Cache :");
-        new VictimCache("input5.txt").useVictimCache();
+        x[8] = new VictimCache("input5.txt");
+        x[8].useVictimCache();
         System.out.println("Use Direct Map Cache : ");
-        new VictimCache("input5.txt").useDirectMapCache();
+        x[9] = new VictimCache("input5.txt");
+        x[9].useDirectMapCache();
         System.out.println("*********************");
+        double VHsum = 0;
+        double VMsum = 0;
+        double DHsum = 0;
+        double DMsum = 0;
+        for (int i = 0; i < 5; i++) {
+            VHsum += x[i*2].getHitRatio();
+            DHsum += x[(i*2) + 1].getHitRatio();
+            VMsum += x[i*2].getMissRatio();
+            DMsum += x[(i*2) + 1].getMissRatio();
+        }
+
+        System.out.println("Average Hit Ratio in Victim Cache : " + (VHsum/5));
+        System.out.println("Average Miss Ratio in Victim Cache : " + (VMsum/5));
+        System.out.println("Average Hit Ratio in Direct Map Cache : " + (DHsum/5));
+        System.out.println("Average Miss Ratio in Direct Map Cache : " + (DMsum/5));
+
+
+
         System.out.println("End! :)");
 
     }
